@@ -151,3 +151,146 @@ while(tarea1.estado !== Estados.Completados) {
         tarea1.urgencia++;
     }
 }
+
+// Funciones
+/**
+ * Función que muestra un saludo por consola
+ */
+function saludar(){
+    let nombre ="Jesús"
+    console.log(`Hola , ${nombre}`)
+}
+//Invoación
+
+saludar();
+/**
+ * Función que muestra un saludo por consola a una persona.
+ * @param nombre 
+ */
+function saludarPersona(nombre: string){
+console.log(`Hola, ${nombre}`)
+}
+
+saludarPersona("Yisus");
+
+/**
+ * Función que muestra un adios por consola a una persona
+ * @param nombre // nombre de la persona a despedir, por defecto será pepe
+ */
+function despedirPersona(nombre:string = "pepe"){
+    console.log(`Àdios, ${nombre}`)
+}
+
+despedirPersona(); //Adios pepe
+despedirPersona("Alba") //Adios alba
+
+function despedidaOpcional(nombre?:string){
+if(nombre){
+    console.log(`Adiós, ${nombre}`);
+}else{
+    console.log(`Adiós`);
+}
+}
+
+despedidaOpcional(); //Adiós
+despedidaOpcional("Juanjo"); // Adios Juanjo!
+
+
+function variosParams(nombre:string, apellidos?:string, edad:number=18){
+    if(apellidos){
+        console.log(`${nombre} ${apellidos} tiene ${edad} años`)
+    }else{
+        console.log(`${nombre} tiene ${edad} años`)
+    }
+    
+}
+
+variosParams("Jesús") // Jesús tiene 18 años
+variosParams("Jesús", "Espinel") // Jesús Espinel tiene 18 años
+variosParams("Jesús", undefined, 30) // Jesús tiene 30 años
+variosParams("Jesús","Espinel", 30) //Jesus espinel tiene 30 años
+
+function ejemploVariosTipos(a:string | number){
+   if(typeof(a) === "string"){
+    console.log("A es un string");
+    }else if(typeof a === "number"){
+        console.log("A es un number");
+    }else{
+        console.log("A no es un string ni número");
+        throw Error("A no es string ni número");
+    }
+}
+ejemploVariosTipos("hola");
+ejemploVariosTipos(2);
+
+function ejemploReturn(nombre:string, apellidos:string):string | number{
+return `${nombre} ${apellidos}`
+}
+
+const nombreCompeto = ejemploReturn("Jesus","Espinel")
+console.log(nombreCompeto) //Jesus Espinel
+
+console.log(ejemploReturn ("Jesus","Espinel")) //Jesus Espinel
+
+function ejemploMultipleParams(...nombres:string[]){
+        nombres.forEach((nombre)=>{
+            console.log(nombre)
+        })
+}
+
+ejemploMultipleParams("Martin")
+ejemploMultipleParams("santiago", "Paula", "Jesus","Mario")
+
+const lista = ["Alberto","Sandra"]
+ejemploMultipleParams(...lista)
+
+function ejemploMultipleParamsLista(nombres:string[]){
+    nombres.forEach((nombre)=>{
+        console.log(nombre)
+    })
+}
+
+ejemploMultipleParamsLista(lista);
+
+// Arrow functions
+
+type Empleado ={
+nombre: string,
+apellido: string,
+edad:number
+}
+
+let empleadoMartin:Empleado = {
+    nombre: "Martin",
+    apellido: "Espinel",
+    edad:30
+}
+
+const mostrarEmpleado =(empleado: Empleado) => `${empleado.nombre} tiene ${empleado.edad}`
+
+mostrarEmpleado(empleadoMartin);
+
+
+const datosEmpleados = (empleado:Empleado): string =>{
+    if(empleado.edad > 70){
+ return `Empleado ${empleado.nombre} está en nivel de jubilación` 
+    }else{
+ return `Empleado ${empleado.nombre} está en edad laboral` 
+    }
+}
+
+datosEmpleados(empleadoMartin)
+
+const obtenerSalarios = (empleado:Empleado, cobrar:()=> "Cobrar") =>{
+    if(empleado.edad > 70){
+        return
+    }else{
+        cobrar() // callback a ejecutar
+    }
+}
+
+const cobrarSalario = () =>{
+    console.log("Cobrar nomina de empleado")
+}
+
+obtenerSalarios(empleadoMartin, cobrarSalario)
